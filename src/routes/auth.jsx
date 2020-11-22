@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import macaoLogo from "../imgs/macao.png";
 import logIn from "../imgs/logIn.png";
 import "firebase/auth";
-import firebase from "firebase/app";
 import SignIn from "../components/signIn";
 import LogIn from "../components/logIn";
+import GLogIn from "../components/gLogIn";
 
 const Auth = (props) => {
   const [isLogIn, setIsLogIn] = useState("");
@@ -15,11 +15,11 @@ const Auth = (props) => {
     setClickedBtn(target);
   };
 
-  useEffect(){
-    if(isLogIn !== ""){
-      props
-    }
-  }
+  // useEffect(){
+  //   if(isLogIn !== ""){
+  //     props
+  //   }
+  // }
 
   return (
     <div>
@@ -40,11 +40,18 @@ const Auth = (props) => {
           }}
         />
       )}
+      {clickedBtn === "gLogIn" && (
+        <GLogIn
+          isLogIn={(isLogIn) => {
+            setIsLogIn(isLogIn);
+          }}
+        />
+      )}
       <div>
         <button id="logIn" onClick={onClick}>
-          Log in with Email
+          Log in with E-mail
         </button>
-        <button id="google" onClick={onClick}>
+        <button id="gLogIn" onClick={onClick}>
           Log in with Google
         </button>
         <button id="signIn" onClick={onClick}>

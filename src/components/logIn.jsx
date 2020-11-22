@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import "firebase/auth";
 import firebase from "firebase/app";
+import { useHistory } from "react-router-dom";
 
 const LogIn = (props) => {
   const [userId, setUserId] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  let history = useHistory();
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -17,6 +19,7 @@ const LogIn = (props) => {
         props.isLogIn("login");
         setEmail("");
         setPassword("");
+        onChangePage();
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -34,9 +37,13 @@ const LogIn = (props) => {
     setPassword(event.target.value);
   };
 
+  const onChangePage = () => {
+    history.push("/home");
+  };
+
   return (
     <>
-      <div>Sign In</div>
+      <div>Log In</div>
       <form onSubmit={onSubmit}>
         <input
           type="email"

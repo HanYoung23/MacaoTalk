@@ -36,7 +36,7 @@ const SignIn = (props) => {
 
   return (
     <>
-      <div>CreateAccount</div>
+      <div>Sign In</div>
       <form onSubmit={onSubmit}>
         <input
           type="email"
@@ -56,3 +56,10 @@ const SignIn = (props) => {
   );
 };
 export default SignIn;
+
+// sign out
+// firebase.auth().signOut().then(function() {
+//   // Sign-out successful.
+// }).catch(function(error) {
+//   // An error happened.
+// });

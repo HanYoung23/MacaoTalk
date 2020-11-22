@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import {
+  Link,
+  Route,
+  BrowserRouter as Router,
+  Switch,
+  useParams,
+} from "react-router-dom";
 import Home from "./routes/home";
 import Auth from "./routes/auth";
 import Profile from "./routes/profile";
@@ -10,7 +16,7 @@ function App() {
   return (
     <Router>
       <div>
-        <nav>
+        {/* <nav>
           <ul>
             <li>
               <Link to="/">Auth</Link>
@@ -22,7 +28,7 @@ function App() {
               <Link to="/profile">profile</Link>
             </li>
           </ul>
-        </nav>
+        </nav> */}
         <Switch>
           <Route path="/home">
             <Home />
@@ -42,5 +48,19 @@ function App() {
     </Router>
   );
 }
+
+// <Switch>
+// <Route path="/:id" children={<Child />} />
+// </Switch>
+
+// function Child() {
+//   let { id } = useParams();
+
+//   return (
+//     <div>
+//       <h3>ID: {id}</h3>
+//     </div>
+//   );
+// }
 
 export default App;

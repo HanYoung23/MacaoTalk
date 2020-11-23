@@ -11,4 +11,13 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_MEASUREMENTID,
 };
 
-export default firebase.initializeApp(firebaseConfig);
+// const config = {
+//   apiKey: process.env.REACT_APP_APIKEY,
+//   authDomain: process.env.REACT_APP_AUTHDOMAIN,
+//   databaseURL: process.env.REACT_APP_DATABASEURL,
+//   storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+// };
+
+// firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
+firebase.database();

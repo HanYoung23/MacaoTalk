@@ -17,6 +17,7 @@ const LogIn = (props) => {
       .then((user) => {
         setUserId(user.uid);
         props.isLogIn("login");
+        userData(user.uid, user.email, user.email, user.photoURL);
         setEmail("");
         setPassword("");
         onChangePage();
@@ -39,6 +40,10 @@ const LogIn = (props) => {
 
   const onChangePage = () => {
     history.push("/home");
+  };
+
+  const userData = (userId, name, email, imageUrl) => {
+    props.userInfo(userId, name, email, imageUrl);
   };
 
   return (

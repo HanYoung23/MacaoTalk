@@ -6,7 +6,7 @@ import SignIn from "../components/signIn";
 import LogIn from "../components/logIn";
 import GLogIn from "../components/gLogIn";
 
-const Auth = (props) => {
+const Auth = ({ userInfo }) => {
   const [isLogIn, setIsLogIn] = useState("");
   const [clickedBtn, setClickedBtn] = useState("");
 
@@ -20,6 +20,10 @@ const Auth = (props) => {
   //     props
   //   }
   // }
+
+  const userData = (userId, name, email, imageUrl) => {
+    userInfo(userId, name, email, imageUrl);
+  };
 
   return (
     <div>
@@ -37,6 +41,9 @@ const Auth = (props) => {
         <LogIn
           isLogIn={(isLogIn) => {
             setIsLogIn(isLogIn);
+          }}
+          userInfo={(userId, name, email, imageUrl) => {
+            userData(userId, name, email, imageUrl);
           }}
         />
       )}

@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import firebase from "firebase/app";
 import { useHistory } from "react-router-dom";
+import { fData } from "../fbase";
 
-const Home = () => {
+const Home = ({ userInfo }) => {
   const [message, setMessage] = useState("");
   let history = useHistory();
 
   const onSubmit = (event) => {
     event.preventDefault();
+    console.log(userInfo);
   };
 
   const onClick = () => {
@@ -31,6 +33,18 @@ const Home = () => {
     history.push("/");
   };
 
+  // const writeUserData = (userInfo) => {
+  //   console.log(userInfo);
+  //   firebase
+  //     .database()
+  //     .ref("users/" + userId)
+  //     .set({
+  //       username: name,
+  //       email: email,
+  //       profile_picture: imageUrl,
+  //     });
+  // };
+
   return (
     <>
       <button onClick={onClick}>Log Out</button>
@@ -39,6 +53,8 @@ const Home = () => {
         <input type="text" />
         <input type="submit" />
       </form>
+
+      <button>realtime db</button>
     </>
   );
 };

@@ -1,4 +1,5 @@
 import firebase from "firebase/app";
+import "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_APIKEY,
@@ -19,5 +20,6 @@ const firebaseConfig = {
 // };
 
 // firebase.initializeApp(firebaseConfig);
-firebase.initializeApp(firebaseConfig);
-firebase.database();
+export const fConfig = firebase.initializeApp(firebaseConfig);
+
+export const fData = firebase.database();

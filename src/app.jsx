@@ -12,10 +12,6 @@ import Profile from "./routes/profile";
 
 function App() {
   const [address, setAddress] = useState("");
-  const [userId, setUserId] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
 
   return (
     <Router>
@@ -35,7 +31,7 @@ function App() {
         </nav> */}
         <Switch>
           <Route path="/home">
-            <Home userInfo={name} />
+            <Home />
           </Route>
           <Route path="/profile">
             <Profile />
@@ -44,12 +40,6 @@ function App() {
             <Auth
               address={(address) => {
                 setAddress(address);
-              }}
-              userInfo={(userId, name, email, imageUrl) => {
-                setUserId(userId);
-                setName(name);
-                setEmail(email);
-                setImageUrl(imageUrl);
               }}
             />
           </Route>

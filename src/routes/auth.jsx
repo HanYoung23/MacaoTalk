@@ -42,9 +42,6 @@ const Auth = ({ userInfo }) => {
           isLogIn={(isLogIn) => {
             setIsLogIn(isLogIn);
           }}
-          userInfo={(userId, name, email, imageUrl) => {
-            userData(userId, name, email, imageUrl);
-          }}
         />
       )}
       {clickedBtn === "gLogIn" && (

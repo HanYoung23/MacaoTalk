@@ -12,14 +12,14 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_MEASUREMENTID,
 };
 
-// const config = {
-//   apiKey: process.env.REACT_APP_APIKEY,
-//   authDomain: process.env.REACT_APP_AUTHDOMAIN,
-//   databaseURL: process.env.REACT_APP_DATABASEURL,
-//   storageBucket: process.env.REACT_APP_STORAGEBUCKET,
-// };
+const config = {
+  apiKey: process.env.REACT_APP_APIKEY,
+  authDomain: process.env.REACT_APP_AUTHDOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASEURL,
+  storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+};
 
 // firebase.initializeApp(firebaseConfig);
-export const fConfig = firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(config);
 
 export const fData = firebase.database();

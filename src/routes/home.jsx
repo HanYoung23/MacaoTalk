@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import firebase from "firebase/app";
 import { useHistory } from "react-router-dom";
-import { fData } from "../fbase";
 
-const Home = ({ userInfo }) => {
+const Home = () => {
   const [message, setMessage] = useState("");
+  const inputText = useRef("");
   let history = useHistory();
 
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log(userInfo);
+    dbSet();
+    inputText.current.value = "";
   };
 
   const onClick = () => {
@@ -33,28 +34,31 @@ const Home = ({ userInfo }) => {
     history.push("/");
   };
 
-  // const writeUserData = (userInfo) => {
-  //   console.log(userInfo);
-  //   firebase
-  //     .database()
-  //     .ref("users/" + userId)
-  //     .set({
-  //       username: name,
-  //       email: email,
-  //       profile_picture: imageUrl,
-  //     });
-  // };
+  const dbRef = firebase.database().ref().child("infos");
+
+  const dbSet = () => {
+    dbRef.set({
+      text: inputText.current.value,
+    });
+  };
+
+  const dbRead = () => {
+    dbRef.on("value", (snap) => {
+      console.log(snap.child("text").val());
+      console.log(snap);
+    });
+  };
 
   return (
     <>
       <button onClick={onClick}>Log Out</button>
       <h1>home</h1>
       <form onSubmit={onSubmit}>
-        <input type="text" />
+        <input ref={inputText} type="text" />
         <input type="submit" />
       </form>
-
-      <button>realtime db</button>
+      <button onClick={dbRead}>asdf</button>
+      <div className="textField"></div>
     </>
   );
 };

@@ -34,18 +34,23 @@ const Home = () => {
     history.push("/");
   };
 
-  const dbRef = firebase.database().ref().child("infos");
+  const dbRef = firebase.database().ref("infos");
 
-  const dbSet = () => {
-    dbRef.set({
-      text: inputText.current.value,
-    });
+  const dbSet = (userId, name, email, imageUrl) => {
+    firebase
+      .database()
+      .ref("infos/" + userId)
+      .set({
+        username: name,
+        email: email,
+        profile_picture: imageUrl,
+        text: inputText.current.value,
+      });
   };
 
   const dbRead = () => {
     dbRef.on("value", (snap) => {
       console.log(snap.child("text").val());
-      console.log(snap);
     });
   };
 

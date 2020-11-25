@@ -17,6 +17,7 @@ const LogIn = (props) => {
       .then((user) => {
         setUserId(user.uid);
         props.isLogIn("login");
+        console.log(user);
         setEmail("");
         setPassword("");
         onChangePage();

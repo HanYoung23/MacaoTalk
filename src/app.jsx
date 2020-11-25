@@ -9,6 +9,7 @@ import {
 import Home from "./routes/home";
 import Auth from "./routes/auth";
 import Profile from "./routes/profile";
+import { fAuth } from "./fbase";
 
 function App() {
   const [address, setAddress] = useState("");

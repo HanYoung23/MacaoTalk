@@ -6,23 +6,13 @@ import SignIn from "../components/signIn";
 import LogIn from "../components/logIn";
 import GLogIn from "../components/gLogIn";
 
-const Auth = ({ userInfo }) => {
+const Auth = () => {
   const [isLogIn, setIsLogIn] = useState("");
   const [clickedBtn, setClickedBtn] = useState("");
 
   const onClick = (event) => {
     const target = event.target.id;
     setClickedBtn(target);
-  };
-
-  // useEffect(){
-  //   if(isLogIn !== ""){
-  //     props
-  //   }
-  // }
-
-  const userData = (userId, name, email, imageUrl) => {
-    userInfo(userId, name, email, imageUrl);
   };
 
   return (

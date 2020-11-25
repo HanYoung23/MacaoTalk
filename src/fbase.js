@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/database";
-//import "firebase/auth";
+import "firebase/auth";
+import "firebase/storage";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_APIKEY,
@@ -13,16 +14,9 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_MEASUREMENTID,
 };
 
-// const config = {
-//   apiKey: process.env.REACT_APP_APIKEY,
-//   authDomain: process.env.REACT_APP_AUTHDOMAIN,
-//   databaseURL: process.env.REACT_APP_DATABASEURL,
-//   storageBucket: process.env.REACT_APP_STORAGEBUCKET,
-// };
-
 firebase.initializeApp(firebaseConfig);
-// firebase.initializeApp(config);
 
+export const fBaseInstance = firebase;
 export const fData = firebase.database();
-
 export const fAuth = firebase.auth();
+export const fStorage = firebase.storage();

@@ -9,7 +9,7 @@ function App() {
 
   useEffect(() => {
     fAuth.onAuthStateChanged((user) => {
-      console.log(user);
+      console.log("useEffect", user);
       if (user) {
         console.log(user);
         setIsLoggedIn(true);
@@ -26,27 +26,27 @@ function App() {
     });
   });
 
-  // const refreshUser = () => {
-  //   const user = fAuth.currentUser;
-  //   if (user.displayName !== null) {
-  //     setUserObj({
-  //       displayName: user.displayName,
-  //       uid: user.uid,
-  //       updateProfile: (args) => user.updateProfile(args),
-  //     });
-  //   }
-  // };
+  const refreshUser = () => {
+    const user = fAuth.currentUser;
+    if (user.displayName !== null) {
+      setUserObj({
+        // displayName: user.displayName,
+        // uid: user.uid,
+        // updateProfile: (args) => user.updateProfile(args),
+      });
+    }
+  };
 
   return (
     <>
       {init ? (
         <AppRouter
-          // refreshUser={refreshUser}
+          refreshUser={refreshUser}
           isLoggedIn={isLoggedIn}
           userObj={userObj}
         />
       ) : (
-        "initializing..."
+        "Loading..."
       )}
     </>
   );

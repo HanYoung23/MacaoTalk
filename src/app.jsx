@@ -9,22 +9,21 @@ function App() {
 
   useEffect(() => {
     fAuth.onAuthStateChanged((user) => {
-      console.log("useEffect", user);
+      console.log("App", user);
       if (user) {
-        console.log(user);
         setIsLoggedIn(true);
-        // setUserObj({
-        //   displayName: user.displayName,
-        //   uid: user.uid,
-        //   updateProfile: (args) => user.updateProfile(args),
-        // });
+        setUserObj({
+          displayName: user.displayName,
+          uid: user.uid,
+          updateProfile: (args) => user.updateProfile(args),
+        });
       } else {
         setIsLoggedIn(false);
       }
       setInit(true);
       // refreshUser();
     });
-  });
+  }, []);
 
   const refreshUser = () => {
     const user = fAuth.currentUser;

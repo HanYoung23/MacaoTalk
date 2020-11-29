@@ -1,29 +1,16 @@
 import React, { useRef, useState } from "react";
 import firebase from "firebase/app";
 import { useHistory } from "react-router-dom";
+import UserList from "../components/userList";
 
-const Home = () => {
-  const [message, setMessage] = useState("");
-  const inputText = useRef("");
+const Home = ({ userObj }) => {
   let history = useHistory();
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    dbSet();
-    inputText.current.value = "";
-  };
-
-  const onClick = () => {
-    onLogOut();
-  };
 
   const onLogOut = async () => {
     await firebase
       .auth()
       .signOut()
-      .then(() => {
-        onChangePage();
-      })
+      .then(() => {})
       .catch((error) => {
         console.log(error);
         alert(error.message);
@@ -31,39 +18,16 @@ const Home = () => {
   };
 
   const onChangePage = () => {
-    history.push("/");
-  };
-
-  const dbRef = firebase.database().ref("infos");
-
-  const dbSet = (userId, name, email, imageUrl) => {
-    firebase
-      .database()
-      .ref("infos/" + userId)
-      .set({
-        username: name,
-        email: email,
-        profile_picture: imageUrl,
-        text: inputText.current.value,
-      });
-  };
-
-  const dbRead = () => {
-    dbRef.on("value", (snap) => {
-      console.log(snap.child("text").val());
-    });
+    history.push("conversation");
   };
 
   return (
     <>
-      <button onClick={onClick}>Log Out</button>
-      <h1>home</h1>
-      <form onSubmit={onSubmit}>
-        <input ref={inputText} type="text" />
-        <input type="submit" />
-      </form>
-      <button onClick={dbRead}>asdf</button>
-      <div className="textField"></div>
+      <button onClick={onLogOut}>LogOut</button>
+      <button onClick={onChangePage}>ConversationList</button>
+      <h3>{userObj.displayName}'s Account</h3>
+      <img src={userObj.photoURL} alt="userPhoto" />
+      <UserList />
     </>
   );
 };

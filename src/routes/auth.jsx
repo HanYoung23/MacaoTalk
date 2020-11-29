@@ -7,8 +7,8 @@ import LogIn from "../components/logIn";
 import GLogIn from "../components/gLogIn";
 
 const Auth = () => {
-  const [isLogIn, setIsLogIn] = useState("");
-  const [clickedBtn, setClickedBtn] = useState("");
+  const [isLogIn, setIsLogIn] = useState(null);
+  const [clickedBtn, setClickedBtn] = useState(null);
 
   const onClick = (event) => {
     const target = event.target.id;
@@ -27,20 +27,8 @@ const Auth = () => {
           }}
         />
       )}
-      {clickedBtn === "logIn" && (
-        <LogIn
-          isLogIn={(isLogIn) => {
-            setIsLogIn(isLogIn);
-          }}
-        />
-      )}
-      {clickedBtn === "gLogIn" && (
-        <GLogIn
-          isLogIn={(isLogIn) => {
-            setIsLogIn(isLogIn);
-          }}
-        />
-      )}
+      {clickedBtn === "logIn" && <LogIn />}
+      {clickedBtn === "gLogIn" && <GLogIn />}
       <div>
         <button id="logIn" onClick={onClick}>
           Log in with E-mail

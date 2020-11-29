@@ -1,18 +1,13 @@
 import React from "react";
 import firebase from "firebase/app";
-import { useHistory } from "react-router-dom";
+import { fAuth } from "../fbase";
 
-const provider = new firebase.auth.GoogleAuthProvider();
+const googleAuth = new firebase.auth.GoogleAuthProvider();
 
 const GLogIn = () => {
-  let history = useHistory();
-
-  firebase
-    .auth()
-    .signInWithPopup(provider)
-    .then((result) => {
-      history.push("/home");
-    })
+  fAuth
+    .signInWithPopup(googleAuth)
+    .then((result) => {})
     .catch((error) => {
       // const errorCode = error.code;
       // const errorMessage = error.message;

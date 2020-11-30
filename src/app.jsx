@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AppRouter from "./components/appRouter";
-import { fAuth, fData } from "./fbase";
+import { fAuth } from "./fbase";
 
 function App() {
   const [init, setInit] = useState(false);
@@ -16,14 +16,8 @@ function App() {
           uid: user.uid,
           email: user.email,
           photoURL: user.photoURL,
-          updateProfile: (args) => user.updateProfile(args),
+          // updateProfile: (args) => user.updateProfile(args),
         });
-        writeUserData(
-          userObj.uid,
-          userObj.displayName,
-          userObj.email,
-          userObj.photoURL
-        );
       } else {
         setIsLoggedIn(false);
       }
@@ -31,16 +25,6 @@ function App() {
       // refreshUser();
     });
   }, []);
-
-  const writeUserData = (userId, name, email, imageUrl) => {
-    fData
-      .ref("users/" + userId) //
-      .set({
-        username: name,
-        email: email,
-        profile_picture: imageUrl,
-      });
-  };
 
   const refreshUser = () => {
     const user = fAuth.currentUser;

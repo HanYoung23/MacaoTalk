@@ -2,9 +2,13 @@ import React, { useRef, useState } from "react";
 import firebase from "firebase/app";
 import { useHistory } from "react-router-dom";
 import UserList from "../components/userList";
+import { fStore } from "../fbase";
 
 const Home = ({ userObj }) => {
+  const [textStorage, setTextStorage] = useState([]);
   let history = useHistory();
+  const inputText = useRef();
+  const textArray = [];
 
   const onLogOut = async () => {
     await firebase
@@ -21,13 +25,40 @@ const Home = ({ userObj }) => {
     history.push("conversation");
   };
 
+  const onSubmit = (event) => {
+    event.preventDefault();
+    textArray.concat(inputText.current.value);
+    setTextStorage(textArray);
+    console.log(textStorage);
+    addFireStore(inputText.current.value);
+  };
+
+  const addFireStore = (message) => {
+    fStore
+      .collection(userObj.uid)
+      .doc("texts")
+      .set({
+        text: message,
+      })
+      .then(() => {
+        inputText.current.value = "";
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+  };
+
   return (
     <>
       <button onClick={onLogOut}>LogOut</button>
       <button onClick={onChangePage}>ConversationList</button>
       <h3>{userObj.displayName}'s Account</h3>
       <img src={userObj.photoURL} alt="userPhoto" />
-      <UserList />
+      <form>
+        <input type="text" ref={inputText} />
+        <input type="submit" onClick={onSubmit} />
+      </form>
+      <UserList textStorage={textStorage} />
     </>
   );
 };

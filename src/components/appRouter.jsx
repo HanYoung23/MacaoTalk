@@ -8,6 +8,15 @@ import { fData } from "../fbase";
 
 const AppRouter = ({ refreshUser, isLoggedIn, userObj, isSignedOut }) => {
   useEffect(() => {
+    if (userObj === null) {
+      return (
+        <>
+          <Route exact path="/">
+            <Auth />
+          </Route>
+        </>
+      );
+    }
     writeUserData(
       userObj.uid,
       userObj.displayName,
@@ -26,18 +35,17 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj, isSignedOut }) => {
       });
   };
 
+  const signOut = (tof) => {
+    isSignedOut(tof);
+  };
+
   return (
     <Router>
       <Switch>
         {isLoggedIn ? (
           <>
             <Route exact path="/">
-              <Home
-                userObj={userObj}
-                isSignedOut={(tof) => {
-                  setIsLoggedIn(tof);
-                }}
-              />
+              {userObj && <Home userObj={userObj} isSignedOut={signOut} />}
             </Route>
             <Route exact path="/conversation">
               <ConversationList userObj={userObj} refreshUser={refreshUser} />

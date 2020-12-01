@@ -39,7 +39,8 @@ function App() {
   };
 
   const signOut = (tof) => {
-    setIsLoggedIn(false);
+    setIsLoggedIn(tof);
+    console.log(tof);
   };
 
   return (
@@ -48,9 +49,7 @@ function App() {
         <AppRouter
           refreshUser={refreshUser}
           isLoggedIn={isLoggedIn}
-          isSignedOut={(tof) => {
-            setIsLoggedIn(tof);
-          }}
+          isSignedOut={signOut}
           userObj={userObj}
         />
       ) : (

@@ -2,23 +2,17 @@ import React, { useRef, useState } from "react";
 import firebase from "firebase/app";
 import { useHistory } from "react-router-dom";
 import UserList from "../components/userList";
-import { fStore } from "../fbase";
+import { fAuth, fStore } from "../fbase";
 
-const Home = ({ userObj }) => {
+const Home = ({ userObj, isSignedOut }) => {
   const [textStorage, setTextStorage] = useState([]);
   let history = useHistory();
   const inputText = useRef();
   const textArray = [];
 
-  const onLogOut = async () => {
-    await firebase
-      .auth()
-      .signOut()
-      .then(() => {})
-      .catch((error) => {
-        console.log(error);
-        alert(error.message);
-      });
+  const onLogOut = () => {
+    fAuth.signOut();
+    isSignedOut(false);
   };
 
   const onChangePage = () => {
@@ -27,9 +21,6 @@ const Home = ({ userObj }) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    textArray.concat(inputText.current.value);
-    setTextStorage(textArray);
-    console.log(textStorage);
     addFireStore(inputText.current.value);
   };
 
@@ -38,14 +29,13 @@ const Home = ({ userObj }) => {
       .collection(userObj.uid)
       .doc("texts")
       .set({
-        text: message,
+        text1: message,
       })
-      .then(() => {
-        inputText.current.value = "";
-      })
+      .then(() => {})
       .catch((error) => {
         console.error("Error writing document: ", error);
       });
+    inputText.current.value = "";
   };
 
   return (

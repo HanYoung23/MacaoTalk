@@ -38,12 +38,19 @@ function App() {
     }
   };
 
+  const signOut = (tof) => {
+    setIsLoggedIn(false);
+  };
+
   return (
     <>
       {init ? (
         <AppRouter
           refreshUser={refreshUser}
           isLoggedIn={isLoggedIn}
+          isSignedOut={(tof) => {
+            setIsLoggedIn(tof);
+          }}
           userObj={userObj}
         />
       ) : (

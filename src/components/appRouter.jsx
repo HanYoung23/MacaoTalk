@@ -6,7 +6,7 @@ import Profile from "../routes/conversationLits";
 import ConversationList from "../routes/conversationLits";
 import { fData } from "../fbase";
 
-const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
+const AppRouter = ({ refreshUser, isLoggedIn, userObj, isSignedOut }) => {
   useEffect(() => {
     writeUserData(
       userObj.uid,
@@ -16,8 +16,8 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
     );
   }, []);
 
-  const writeUserData = (userId, name, email, imageUrl) => {
-    fData
+  const writeUserData = async (userId, name, email, imageUrl) => {
+    await fData
       .ref("users/" + userId) //
       .set({
         username: name,
@@ -32,7 +32,12 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
         {isLoggedIn ? (
           <>
             <Route exact path="/">
-              <Home userObj={userObj} />
+              <Home
+                userObj={userObj}
+                isSignedOut={(tof) => {
+                  setIsLoggedIn(tof);
+                }}
+              />
             </Route>
             <Route exact path="/conversation">
               <ConversationList userObj={userObj} refreshUser={refreshUser} />

@@ -5,10 +5,9 @@ import UserList from "../components/userList";
 import { fAuth, fStore } from "../fbase";
 
 const Home = ({ userObj, isSignedOut }) => {
-  const [textStorage, setTextStorage] = useState([]);
+  const [readData, setReadData] = useState(null);
   let history = useHistory();
   const inputText = useRef();
-  const textArray = [];
 
   const onLogOut = () => {
     fAuth.signOut();
@@ -22,14 +21,15 @@ const Home = ({ userObj, isSignedOut }) => {
   const onSubmit = (event) => {
     event.preventDefault();
     addFireStore(inputText.current.value);
+    readDb();
   };
 
-  const addFireStore = (message) => {
-    fStore
-      .collection(userObj.uid)
-      .doc("texts")
-      .set({
-        text1: message,
+  const addFireStore = async (message) => {
+    await fStore
+      .collection("macaoTalk")
+      .add({
+        user: userObj.displayName,
+        message,
       })
       .then(() => {})
       .catch((error) => {
@@ -38,17 +38,31 @@ const Home = ({ userObj, isSignedOut }) => {
     inputText.current.value = "";
   };
 
+  const readDb = async () => {
+    await fStore
+      .collection("macaoTalk")
+      .get()
+      .then((querySnapshot) => {
+        console.log(querySnapshot);
+        querySnapshot.forEach((doc) => {
+          console.log("asd", doc);
+          console.log(`${doc.id} => ${doc.data()}`);
+          setReadData(doc.data());
+        });
+      });
+  };
+
   return (
     <>
       <button onClick={onLogOut}>LogOut</button>
       <button onClick={onChangePage}>ConversationList</button>
       <h3>{userObj.displayName}'s Account</h3>
       <img src={userObj.photoURL} alt="userPhoto" />
-      <form>
+      <form onSubmit={onSubmit}>
         <input type="text" ref={inputText} />
-        <input type="submit" onClick={onSubmit} />
+        <input type="submit" value="확인" />
       </form>
-      <UserList textStorage={textStorage} />
+      <UserList />
     </>
   );
 };

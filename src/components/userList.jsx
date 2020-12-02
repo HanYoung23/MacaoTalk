@@ -1,7 +1,17 @@
 import React from "react";
+import { fStore } from "../fbase";
 
 const UserList = () => {
-  return <h1>User List</h1>;
+  // const getData = fStore
+  //   .collection("macaoTalk")
+  //   .get()
+  //   .then((querySnapshot) => {
+  //     querySnapshot.forEach((doc) => {
+  //       console.log(`${doc.id} => ${doc.data()}`);
+  //     });
+  //   });
+
+  return <h1>asdf</h1>;
 };
 
 export default UserList;
